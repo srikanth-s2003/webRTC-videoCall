@@ -1,0 +1,17 @@
+{
+  "name": "firebasertc-video-call",
+  "version": "1.0.0",
+  "description": "WhatsApp-style WebRTC video calling app with Firebase signaling",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "serve public",
+    "build": "echo 'No build step required'",
+    "dev": "serve public"
+  },
+  "keywords": ["webrtc", "video-call", "firebase", "realtime"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

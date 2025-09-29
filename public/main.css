@@ -1,90 +1,267 @@
-body {
-    background: #ECEFF1;
-    color: rgba(0, 0, 0, 0.87);
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+/* Reset and base styles */
+* {
     margin: 0;
     padding: 0;
-}
-
-#message {
-    background: white;
-    max-width: 360px;
-    margin: 100px auto 16px;
-    padding: 32px 24px;
-    border-radius: 3px;
-}
-
-#message h2 {
-    color: #ffa100;
-    font-weight: bold;
-    font-size: 16px;
-    margin: 0 0 8px;
-}
-
-#message h1 {
-    font-size: 22px;
-    font-weight: 300;
-    color: rgba(0, 0, 0, 0.6);
-    margin: 0 0 16px;
-}
-
-#message p {
-    line-height: 140%;
-    margin: 16px 0 24px;
-    font-size: 14px;
-}
-
-#message a {
-    display: block;
-    text-align: center;
-    background: #039be5;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: white;
-    padding: 16px;
-    border-radius: 4px;
-}
-
-#message, #message a {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-#load {
-    color: rgba(0, 0, 0, 0.4);
-    text-align: center;
-    font-size: 13px;
-}
-
-@media (max-width: 600px) {
-    body, #message {
-        margin-top: 0;
-        background: white;
-        box-shadow: none;
-    }
-
-    body {
-        border-top: 16px solid #ffa100;
-    }
+    box-sizing: border-box;
 }
 
 body {
-    margin: 1em;
+    font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
 }
 
-button {
-    margin: 0.2em 0.1em;
+#app-container {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
 }
 
-div#videos {
+/* Setup Screen Styles */
+#setup-screen {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
 }
 
-div#videos > video {
-    background: black;
-    width: 640px;
-    height: 100%;
-    display: block;
-    margin: 1em;
+#setup-screen h1 {
+    color: white;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 300px;
+    width: 100%;
+}
+
+#buttons button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 25px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+#buttons button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+#buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#currentRoom {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    word-break: break-all;
+    backdrop-filter: blur(10px);
+}
+
+/* Video Call Screen Styles */
+#call-screen {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background: #000;
+}
+
+/* Remote video (full screen) */
+#remoteVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+    background: #1a1a1a;
+}
+
+/* Local video (picture-in-picture) */
+#localVideo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: 160px;
+    border-radius: 15px;
+    object-fit: cover;
+    z-index: 3;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: #333;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Call controls */
+#call-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px 20px;
+    border-radius: 50px;
+    backdrop-filter: blur(20px);
+}
+
+.control-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.hangup {
+    background: #ff4444;
+}
+
+.control-btn.hangup:hover {
+    background: #cc3333;
+}
+
+.control-btn i {
+    font-size: 24px;
+}
+
+/* Call status */
+#call-status {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    #setup-screen h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    #buttons {
+        max-width: 280px;
+    }
+    
+    #buttons button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Adjust local video for mobile */
+    #localVideo {
+        width: 100px;
+        height: 133px;
+        top: 15px;
+        right: 15px;
+    }
+    
+    /* Adjust controls for mobile */
+    #call-controls {
+        bottom: 20px;
+        padding: 12px 16px;
+        gap: 12px;
+    }
+    
+    .control-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .control-btn i {
+        font-size: 22px;
+    }
+    
+    #call-status {
+        top: 15px;
+        left: 15px;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    #localVideo {
+        width: 80px;
+        height: 107px;
+    }
+    
+    #call-controls {
+        bottom: 15px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    #setup-screen {
+        padding: 1rem;
+    }
+    
+    #localVideo {
+        width: 90px;
+        height: 120px;
+    }
+}
+
+/* Animation for screen transitions */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

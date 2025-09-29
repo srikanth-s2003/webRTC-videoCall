@@ -2,47 +2,70 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Welcome to FirebaseRTC</title>
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.13.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.13.1/firebase-firestore.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<h1>Welcome to FirebaseRTC!</h1>
-<div id="buttons">
-    <button class="mdc-button mdc-button--raised" id="cameraBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">perm_camera_mic</i>
-        <span class="mdc-button__label">Open camera & microphone</span>
-    </button>
-    <button class="mdc-button mdc-button--raised" disabled id="createBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">group_add</i>
-        <span class="mdc-button__label">Create room</span>
-    </button>
-    <button class="mdc-button mdc-button--raised" disabled id="joinBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">group</i>
-        <span class="mdc-button__label">Join room</span>
-    </button>
-    <button class="mdc-button mdc-button--raised" disabled id="hangupBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">close</i>
-        <span class="mdc-button__label">Hangup</span>
-    </button>
-</div>
-<div>
-    <span id="currentRoom"></span>
-</div>
-<div id="videos">
-    <video id="localVideo" muted autoplay playsinline></video>
-    <video id="remoteVideo" autoplay playsinline></video>
+<div id="app-container">
+    <!-- Initial Setup Screen -->
+    <div id="setup-screen">
+        <h1>FirebaseRTC Video Call</h1>
+        <div id="buttons">
+            <button class="mdc-button mdc-button--raised" id="cameraBtn">
+                <i class="material-icons mdc-button__icon" aria-hidden="true">perm_camera_mic</i>
+                <span class="mdc-button__label">Open camera & microphone</span>
+            </button>
+            <button class="mdc-button mdc-button--raised" disabled id="createBtn">
+                <i class="material-icons mdc-button__icon" aria-hidden="true">group_add</i>
+                <span class="mdc-button__label">Create room</span>
+            </button>
+            <button class="mdc-button mdc-button--raised" disabled id="joinBtn">
+                <i class="material-icons mdc-button__icon" aria-hidden="true">group</i>
+                <span class="mdc-button__label">Join room</span>
+            </button>
+        </div>
+        <div id="currentRoom"></div>
+    </div>
+
+    <!-- Video Call Screen -->
+    <div id="call-screen" style="display: none;">
+        <!-- Remote video (full screen) -->
+        <video id="remoteVideo" autoplay playsinline></video>
+        
+        <!-- Local video (picture-in-picture) -->
+        <video id="localVideo" muted autoplay playsinline></video>
+        
+        <!-- Video call controls overlay -->
+        <div id="call-controls">
+            <button id="muteBtn" class="control-btn">
+                <i class="material-icons">mic</i>
+            </button>
+            <button id="switchCameraBtn" class="control-btn" style="display:none;">
+                <i class="material-icons">switch_camera</i>
+            </button>
+            <button id="hangupBtn" class="control-btn hangup">
+                <i class="material-icons">call_end</i>
+            </button>
+            <button id="videoToggleBtn" class="control-btn">
+                <i class="material-icons">videocam</i>
+            </button>
+        </div>
+        
+        <!-- Connection status -->
+        <div id="call-status">Connecting...</div>
+    </div>
 </div>
 <div class="mdc-dialog"
      id="room-dialog"
