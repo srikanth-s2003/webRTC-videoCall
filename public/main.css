@@ -27,7 +27,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
     padding: 2rem;
 }
 
@@ -264,4 +264,13 @@ body {
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+.pad-me{
+    padding: 20px;
+}
+.custom-css{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

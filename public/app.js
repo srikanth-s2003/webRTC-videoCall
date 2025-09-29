@@ -160,13 +160,14 @@ async function createRoom() {
   roomId = roomRef.id; // Store roomId globally
   
   // Show room ID in setup screen BEFORE transitioning to call screen
+  document.querySelector('#currentRoom').style.display='block';
   document.querySelector('#currentRoom').innerHTML = `
     <div style="background: rgba(255, 255, 255, 0.9); color: #333; padding: 1rem; border-radius: 10px; margin: 1rem 0;">
       <h3 style="margin: 0 0 0.5rem 0; color: #333;">Room Created!</h3>
       <p style="margin: 0 0 0.5rem 0; color: #666;">Share this Room ID with others:</p>
       <div style="display: flex; align-items: center; gap: 10px;">
         <strong style="font-size: 1.2em; color: #333; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 5px; font-family: monospace;">${roomId}</strong>
-        <button onclick="copyRoomId('${roomId}')" style="background: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">Copy</button>
+        <button onclick="copyRoomId('${roomId}', event)" style="background: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">Copy</button>
       </div>
       <p style="margin: 0.5rem 0 0 0; font-size: 0.9em; color: #666;">Click "Start Call" when ready</p>
       <button onclick="startCall()" style="background: #2196F3; color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: pointer; margin-top: 10px; font-size: 1rem;">Start Call</button>
@@ -220,7 +221,7 @@ async function createRoom() {
 }
 
 // Helper function to copy room ID to clipboard
-function copyRoomId(roomId) {
+function copyRoomId(roomId, event) {
   navigator.clipboard.writeText(roomId).then(() => {
     // Show feedback
     const button = event.target;
