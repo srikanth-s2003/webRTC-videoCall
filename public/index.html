@@ -1,102 +1,189 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HTQCTMXXRV"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HTQCTMXXRV');
+    </script>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Welcome to p2p video call</title>
+    <title>welcome to p2p video call</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Material Components (keeping for icons) -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <!-- Custom CSS with Bootstrap integration -->
+    <link rel="stylesheet" type="text/css" href="main_bootstrap.css">
 </head>
-<body>
+<body class="light-theme">
 <div id="app-container">
     <!-- Initial Setup Screen -->
-    <div id="setup-screen">
-        <h1>Peer-to-Peer Video Call</h1>
-        <div id="buttons">
-            <button class="custom-css" id="cameraBtn">
-                <i class="material-icons mdc-button__icon" aria-hidden="true">perm_camera_mic</i>
-                <span class="mdc-button__label">Open camera & microphone</span>
-            </button>
-            <button class="custom-css" disabled id="createBtn">
-                <i class="material-icons mdc-button__icon" aria-hidden="true">group_add</i>
-                <span class="mdc-button__label">Create room</span>
-            </button>
-            <button class="custom-css" disabled id="joinBtn">
-                <i class="material-icons mdc-button__icon" aria-hidden="true">group</i>
-                <span class="mdc-button__label">Join room</span>
-            </button>
+    <div id="setup-screen" class="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="row justify-content-center w-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="header-section text-center mb-4">
+                    <div class="logo d-flex align-items-center justify-content-center mb-3">
+                        <h1 class="mb-0">P2P video call</h1>
+                    </div>
+                    <p class="tagline text-muted">Connect with strangers around the world through video chat</p>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <div class="theme-toggle position-absolute top-0 end-0 mt-3 me-3">
+                        <button id="themeToggle" class="btn btn-outline-primary rounded-circle p-2">
+                            <i class="material-icons">dark_mode</i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-content">
+                    <div class="connection-options card shadow-lg border-0">
+                        <div class="card-body p-4 p-md-5">
+                            <h2 class="text-center mb-4">Start Chatting</h2>
+                            <div id="buttons" class="d-grid gap-3">
+                                <button class="btn btn-primary btn-lg d-flex align-items-center justify-content-center" id="randomMatchBtn">
+                                    <i class="material-icons me-2">shuffle</i>
+                                    <span>Start Random Chat</span>
+                                </button>
+                                <div class="divider text-center position-relative my-3">
+                                    <hr class="border-top">
+                                    <span class="bg-white px-3 text-muted position-absolute top-50 start-50 translate-middle">or</span>
+                                </div>
+                                <button class="btn btn-outline-secondary btn-lg d-flex align-items-center justify-content-center" id="createBtn">
+                                    <i class="material-icons me-2">add_circle</i>
+                                    <span>Create Private Room</span>
+                                </button>
+                                <button class="btn btn-outline-secondary btn-lg d-flex align-items-center justify-content-center" id="joinBtn">
+                                    <i class="material-icons me-2">login</i>
+                                    <span>Join Private Room</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="currentRoom" style="display: none;" class="mt-3"></div>
+                    
+                    <div class="features mt-4">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="feature">
+                                    <i class="material-icons text-primary fs-3 mb-2">security</i>
+                                    <small class="text-muted d-block">Anonymous & Safe</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="feature">
+                                    <i class="material-icons text-primary fs-3 mb-2">language</i>
+                                    <small class="text-muted d-block">Global Community</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="feature">
+                                    <i class="material-icons text-primary fs-3 mb-2">hd</i>
+                                    <small class="text-muted d-block">HD Video Quality</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="currentRoom" style="display: none;"></div>
     </div>
 
     <!-- Video Call Screen -->
-    <div id="call-screen" style="display: none;">
-        <!-- Remote video (full screen) -->
-        <video id="remoteVideo" autoplay playsinline></video>
-        
-        <!-- Local video (picture-in-picture) -->
-        <video id="localVideo" muted autoplay playsinline></video>
-        
-        <!-- Video call controls overlay -->
-        <div id="call-controls">
-            <button id="muteBtn" class="control-btn">
-                <i class="material-icons">mic</i>
-            </button>
-            <button id="switchCameraBtn" class="control-btn" style="display:none;">
-                <i class="material-icons">switch_camera</i>
-            </button>
-            <button id="hangupBtn" class="control-btn hangup">
-                <i class="material-icons">call_end</i>
-            </button>
-            <button id="videoToggleBtn" class="control-btn">
-                <i class="material-icons">videocam</i>
-            </button>
-        </div>
-        
-        <!-- Connection status -->
-        <div id="call-status">Connecting...</div>
-    </div>
-</div>
-<div class="mdc-dialog"
-     id="room-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content">
-    <div class="mdc-dialog__container">
-        <div class="mdc-dialog__surface">
-            <h2 class="mdc-dialog__title" id="my-dialog-title">Join room</h2>
-            <div class="mdc-dialog__content" id="my-dialog-content">
-                Enter ID for room to join:
-                <div class="mdc-text-field">
-                    <input type="text" id="room-id" class="mdc-text-field__input" placeholder="room ID">
-                    <label class="mdc-floating-label" for="my-text-field"></label>
-                    <div class="mdc-line-ripple"></div>
+        <!-- Video Call Screen -->
+    <div id="call-screen" class="position-relative vh-100 bg-dark" style="display: none;">
+        <!-- Header with branding -->
+        <div class="call-header position-absolute top-0 start-0 end-0 bg-gradient bg-dark bg-opacity-75 p-3 z-3">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div class="call-logo text-white fw-bold">ChatConnect</div>
+                    </div>
+                    <div class="col-6 text-end">
+                        <div class="call-info">
+                            <span id="call-status" class="text-white-50">Connecting...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <footer class="mdc-dialog__actions">
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-                    <span class="mdc-button__label">Cancel</span>
-                </button>
-                <button id="confirmJoinBtn" type="button" class="mdc-button mdc-dialog__button"
-                        data-mdc-dialog-action="yes">
-                    <span class="mdc-button__label">Join</span>
-                </button>
-            </footer>
+        </div>
+        
+        <!-- Remote video (full screen) -->
+        <video id="remoteVideo" class="w-100 h-100 object-fit-cover bg-dark" autoplay playsinline></video>
+        
+        <!-- Local video (picture-in-picture) -->
+        <video id="localVideo" class="position-absolute top-0 end-0 mt-5 me-3 rounded border border-light border-opacity-25 bg-secondary z-2" 
+               style="width: min(200px, 25vw); height: min(150px, 18.75vw);" muted autoplay playsinline></video>
+        
+        <!-- Video call controls overlay -->
+        <div id="call-controls" class="position-absolute bottom-0 start-50 translate-middle-x mb-4 d-flex gap-3 bg-dark bg-opacity-50 rounded-pill p-3 z-3">
+            <button id="muteBtn" class="btn btn-outline-light rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="material-icons">mic</i>
+            </button>
+            <button id="videoToggleBtn" class="btn btn-outline-light rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="material-icons">videocam</i>
+            </button>
+            <button id="switchCameraBtn" class="btn btn-outline-light rounded-circle p-3 d-flex align-items-center justify-content-center d-none d-md-flex" style="width: 56px; height: 56px;">
+                <i class="material-icons">switch_camera</i>
+            </button>
+            <button id="hangupBtn" class="btn btn-danger rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="material-icons">call_end</i>
+            </button>
+        </div>
+        
+        <!-- Next Chat Button (Omegle style) -->
+        <div class="next-chat position-absolute top-50 end-0 translate-middle-y me-4 d-none d-lg-block z-3">
+            <button id="nextChatBtn" class="btn btn-success rounded-pill px-4 py-2 d-flex align-items-center">
+                <i class="material-icons me-2">skip_next</i>
+                <span>Next</span>
+            </button>
         </div>
     </div>
-    <div class="mdc-dialog__scrim"></div>
 </div>
+
+<!-- Bootstrap Modal for joining rooms -->
+<div class="modal fade" id="room-dialog" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roomModalLabel">Join Private Room</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3">Enter the room ID to join:</p>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="room-id" placeholder="Enter room ID">
+                    <label for="room-id">Room ID</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="confirmJoinBtn" type="button" class="btn btn-primary">Join Room</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

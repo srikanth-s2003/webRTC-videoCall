@@ -5,26 +5,54 @@
     box-sizing: border-box;
 }
 
+/* CSS Variables for theming */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-accent: rgba(59, 130, 246, 0.1);
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-accent: #3b82f6;
+    --border-light: #e5e7eb;
+    --border-medium: #d1d5db;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-accent: linear-gradient(45deg, #3b82f6, #1d4ed8);
+}
+
+/* Dark theme variables */
+body.dark-theme {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-accent: rgba(59, 130, 246, 0.2);
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-accent: #60a5fa;
+    --border-light: #374151;
+    --border-medium: #4b5563;
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --gradient-primary: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow: hidden;
     height: 100vh;
     width: 100vw;
     position: relative;
+    transition: all 0.3s ease;
 }
 
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="rgba(255,255,255,0.02)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    pointer-events: none;
-    opacity: 0.3;
+body.light-theme {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+body.dark-theme {
+    background: var(--gradient-primary);
 }
 
 #app-container {
@@ -42,13 +70,12 @@ body::before {
     justify-content: center;
     height: 100vh;
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
 }
 
 .header-section {
     text-align: center;
     margin-bottom: 3rem;
+    position: relative;
 }
 
 .logo {
@@ -61,7 +88,7 @@ body::before {
 
 .logo-icon {
     font-size: 3rem;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -70,19 +97,44 @@ body::before {
 .logo h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(45deg, #fff, #e0e0e0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .tagline {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 300;
+    color: var(--text-secondary);
+    font-weight: 400;
     max-width: 400px;
     line-height: 1.5;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: absolute;
+    top: -1rem;
+    right: -2rem;
+}
+
+.theme-btn {
+    background: var(--bg-accent);
+    border: 1px solid var(--border-light);
+    color: var(--text-accent);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.theme-btn:hover {
+    background: var(--text-accent);
+    color: white;
+    transform: scale(1.1);
 }
 
 .main-content {
@@ -91,12 +143,12 @@ body::before {
 }
 
 .connection-options {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
     border-radius: 20px;
     padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 40px var(--shadow-light);
+    backdrop-filter: blur(20px);
 }
 
 .connection-options h2 {
@@ -104,7 +156,25 @@ body::before {
     margin-bottom: 2rem;
     font-size: 1.5rem;
     font-weight: 600;
-    color: white;
+    color: var(--text-primary);
+}
+
+/* Camera Status */
+.status-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(34, 197, 94, 0.1);
+    color: #059669;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.status-message i {
+    font-size: 1.2rem;
 }
 
 #buttons {
@@ -114,12 +184,38 @@ body::before {
     margin-bottom: 2rem;
 }
 
+/* Divider */
+.divider {
+    text-align: center;
+    position: relative;
+    margin: 1rem 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-light);
+}
+
+.divider span {
+    background: var(--bg-primary);
+    padding: 0 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+}
+
 /* Button Styles */
 .primary-btn {
-    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    background: var(--gradient-accent);
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 1.2rem 2rem;
     border-radius: 50px;
     font-size: 1.1rem;
     font-weight: 600;
@@ -129,19 +225,19 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     font-family: inherit;
 }
 
 .primary-btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
 .action-btn {
-    background: linear-gradient(45deg, #4ecdc4, #44a08d);
-    color: white;
-    border: none;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
     padding: 1rem 2rem;
     border-radius: 50px;
     font-size: 1rem;
@@ -152,24 +248,23 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
     font-family: inherit;
 }
 
 .action-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+    background: var(--bg-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow-light);
 }
 
 .action-btn.secondary {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    border: 1px solid var(--border-medium);
 }
 
 .action-btn.secondary:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: var(--bg-accent);
+    border-color: var(--text-accent);
 }
 
 button:disabled {
@@ -188,7 +283,7 @@ button i {
     justify-content: space-around;
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-light);
 }
 
 .feature {
@@ -197,13 +292,13 @@ button i {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     text-align: center;
 }
 
 .feature i {
     font-size: 1.5rem;
-    color: #4ecdc4;
+    color: var(--text-accent);
 }
 
 /* Call Screen Styles */
@@ -418,6 +513,11 @@ button i {
     .call-header {
         padding: 1rem;
     }
+    
+    .theme-toggle {
+        position: static;
+        margin-top: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -464,25 +564,14 @@ button i {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--border-medium);
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-/* Legacy support for old class names */
-.pad-me{
-    padding: 20px;
-}
-
-.custom-css{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: var(--text-secondary);
 }

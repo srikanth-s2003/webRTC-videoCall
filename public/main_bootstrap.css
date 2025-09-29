@@ -1,0 +1,282 @@
+/* Custom styles for ChatConnect with Bootstrap integration */
+
+/* Override Bootstrap variables for dark/light theme */
+:root {
+    --bs-primary: #3b82f6;
+    --bs-primary-rgb: 59, 130, 246;
+    --bs-secondary: #6b7280;
+    --bs-success: #10b981;
+    --bs-danger: #ef4444;
+    --bs-warning: #f59e0b;
+    --bs-info: #3b82f6;
+    --bs-light: #f8fafc;
+    --bs-dark: #1f2937;
+}
+
+/* Dark theme adjustments */
+body.dark-theme {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #f9fafb;
+}
+
+body.dark-theme .card {
+    background-color: rgba(31, 41, 55, 0.9);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+body.dark-theme .text-muted {
+    color: #d1d5db !important;
+}
+
+body.dark-theme .border-top {
+    border-color: rgba(75, 85, 99, 0.3) !important;
+}
+
+body.dark-theme .modal-content {
+    background-color: #374151;
+    border-color: #4b5563;
+}
+
+body.dark-theme .form-control {
+    background-color: #4b5563;
+    border-color: #6b7280;
+    color: #f9fafb;
+}
+
+body.dark-theme .form-control:focus {
+    background-color: #4b5563;
+    border-color: var(--bs-primary);
+    color: #f9fafb;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+/* Light theme styling */
+body.light-theme {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Custom button hover effects */
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+/* Logo styling */
+.logo-icon {
+    font-size: 3rem;
+    background: linear-gradient(45deg, var(--bs-primary), #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Custom animations */
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+}
+
+.loading-animation {
+    animation: loading 1.5s infinite;
+}
+
+/* Responsive video sizing */
+@media (max-width: 768px) {
+    #localVideo {
+        width: min(120px, 30vw) !important;
+        height: min(90px, 22.5vw) !important;
+        top: 1rem !important;
+        right: 1rem !important;
+    }
+    
+    #call-controls {
+        bottom: 1rem !important;
+        padding: 0.75rem !important;
+        gap: 0.75rem !important;
+    }
+    
+    #call-controls .btn {
+        width: 48px !important;
+        height: 48px !important;
+        padding: 0.5rem !important;
+    }
+    
+    .next-chat {
+        display: none !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.5rem !important;
+    }
+    
+    .theme-toggle {
+        position: static !important;
+        margin-top: 1rem !important;
+        text-align: center !important;
+    }
+    
+    #localVideo {
+        width: min(100px, 25vw) !important;
+        height: min(75px, 18.75vw) !important;
+    }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Smooth transitions */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Focus styles for accessibility */
+.btn:focus,
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+/* Theme toggle button */
+.theme-toggle .btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Video call specific styles */
+#call-screen {
+    overflow: hidden;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+    transition: opacity 0.3s ease;
+    background: #000;
+}
+
+#call-screen.fade-in {
+    animation: fadeInCall 0.5s ease-in-out;
+}
+
+@keyframes fadeInCall {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#remoteVideo {
+    object-fit: cover;
+    background: #000;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#localVideo {
+    object-fit: cover;
+    background: #2a2a2a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Call header gradient */
+.call-header {
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%) !important;
+}
+
+/* Control buttons */
+#call-controls .btn {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#call-controls .btn:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: scale(1.05);
+}
+
+#hangupBtn:hover {
+    background-color: var(--bs-danger) !important;
+    border-color: var(--bs-danger) !important;
+}
+
+/* Responsive grid adjustments */
+@media (min-width: 992px) {
+    .connection-options {
+        min-height: 400px;
+    }
+}
+
+/* Status message animations */
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bootstrap modal dark theme */
+body.dark-theme .modal-header {
+    border-bottom-color: #4b5563;
+}
+
+body.dark-theme .modal-footer {
+    border-top-color: #4b5563;
+}
+
+/* Feature icons */
+.feature i {
+    transition: transform 0.3s ease;
+}
+
+.feature:hover i {
+    transform: scale(1.1);
+}
+
+/* Divider styling */
+.divider hr {
+    margin: 0;
+    opacity: 0.3;
+}
+
+.divider span {
+    font-size: 0.875rem;
+}
