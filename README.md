@@ -4,7 +4,7 @@ A WhatsApp-style video calling application built with WebRTC and Firebase Firest
 
 ## 🚀 **Live Demo**
 
-**Production URL**: [https://rtccall-eight.vercel.app/](https://rtccall-ayxul0sv5-srikanths-projects-60cbaacc.vercel.app)
+**Production URL**: [https://rtccall-eight.vercel.app/](https://rtccall-eight.vercel.app/)
 
 *Try it now! Open the link on two different devices or browser tabs to test video calling.*
 
