@@ -2,6 +2,12 @@
 
 A WhatsApp-style video calling application built with WebRTC and Firebase Firestore for signaling.
 
+## 🚀 **Live Demo**
+
+**Production URL**: [https://rtccall-eight.vercel.app/](https://rtccall-ayxul0sv5-srikanths-projects-60cbaacc.vercel.app)
+
+*Try it now! Open the link on two different devices or browser tabs to test video calling.*
+
 ## Features
 
 - 🎥 Real-time video calling
@@ -26,6 +32,27 @@ A WhatsApp-style video calling application built with WebRTC and Firebase Firest
 - **Floating control buttons** for mute, video toggle, camera switch, and hang up
 - **Connection status indicator**
 - **Responsive design** for mobile and desktop
+
+## Deployment
+
+This app is deployed on **Vercel** with automatic HTTPS and global CDN.
+
+### Deploy Your Own
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy to Vercel
+vercel
+
+# Deploy to production
+vercel --prod
+```
+
+### Environment Setup
+- **HTTPS required** for camera/microphone access on mobile devices
+- **Firebase Firestore** for real-time signaling
+- **WebRTC** for peer-to-peer video communication
 
 ## Development
 
